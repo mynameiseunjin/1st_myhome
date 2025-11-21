@@ -1,0 +1,379 @@
+import React, { useState } from 'react';
+import { Plane, MapPin, Coffee, ShoppingBag, Info, CloudSun, Utensils, Train, CheckCircle, Beer, Camera, ArrowRight, Home } from 'lucide-react';
+
+const QingdaoTravelApp = () => {
+  const [activeTab, setActiveTab] = useState('schedule');
+  const [activeDay, setActiveDay] = useState(1);
+
+  // 여행 데이터
+  const scheduleData = {
+    1: {
+      date: "11월 25일 (월)",
+      theme: "칭다오 도착 및 구시가지 산책",
+      items: [
+        {
+          time: "14:30",
+          title: "칭다오 공항 도착 (MU2044)",
+          desc: "입국 수속 후 짐 찾기. (약 1시간 소요 예상)",
+          icon: <Plane className="w-5 h-5 text-blue-500" />
+        },
+        {
+          time: "15:30",
+          title: "숙소 이동 (지하철 체험)",
+          desc: "공항역(8호선) 탑승 → 칭다오베이역(Qingdao North)에서 1호선 환승 → 중산로(Zhongshan Rd)역 하차. (약 1시간 20분 소요)",
+          tip: "지하철이 쾌적하지만 깁니다. 아버님이 힘드시면 공항 택시도 고려하세요.",
+          icon: <Train className="w-5 h-5 text-green-600" />
+        },
+        {
+          time: "17:00",
+          title: "체크인: 칭다오 시티 스테이 인",
+          desc: "No.67 Jiaozhou Road. 짐 풀고 잠시 휴식.",
+          icon: <Home className="w-5 h-5 text-indigo-600" />
+        },
+        {
+          time: "18:00",
+          title: "저녁: 메이다얼 (Meida'er)",
+          desc: "숙소 근처 도보 이동. 칭다오 현지식 바비큐 & 가지튀김 맛집.",
+          tip: "본점은 로컬 느낌이 강합니다. 깔끔한 걸 원하시면 위생 수저를 챙기세요. 가지튀김(펑웨이치에즈) 필수!",
+          icon: <Utensils className="w-5 h-5 text-orange-500" />
+        },
+        {
+          time: "19:30",
+          title: "야경 산책: 피차이위안 & 천주교당",
+          desc: "소화시킬 겸 도보 이동. 성 미카엘 성당의 야경이 아름답습니다.",
+          icon: <Camera className="w-5 h-5 text-purple-500" />
+        },
+        {
+          time: "20:30",
+          title: "디저트: 패왕차희 (BaWangChaJi)",
+          desc: "중산로 근처 매장. 시그니처 '보야절현(伯牙绝弦)' 밀크티 추천. 깔끔하고 고급스러운 맛.",
+          icon: <Coffee className="w-5 h-5 text-amber-600" />
+        }
+      ]
+    },
+    2: {
+      date: "11월 26일 (화)",
+      theme: "맥주의 역사와 쇼핑의 날 (신시가지)",
+      items: [
+        {
+          time: "10:00",
+          title: "아점: 딤섬 맛집 (딘타이펑)",
+          desc: "택시 이동 (약 20분). 믹스몰(MixC) 내 위치. 60대 입맛에 딱 맞는 깔끔하고 실패 없는 딤섬.",
+          icon: <Utensils className="w-5 h-5 text-orange-500" />
+        },
+        {
+          time: "11:30",
+          title: "쇼핑: 믹스몰 (완샹청)",
+          desc: "칭다오 최대 쇼핑몰. 쾌적하게 쇼핑 가능.",
+          tip: "기념품 구매: 지하 마트(Ole) 혹은 샤오미 매장. 동료 선물용 차(Tea)나 칭다오 맥주 초콜릿 추천.",
+          icon: <ShoppingBag className="w-5 h-5 text-pink-500" />
+        },
+        {
+          time: "13:30",
+          title: "점심: 루위 (Luyu 2013)",
+          desc: "믹스몰 내 위치. 농어 구이(마늘맛 추천) + 배추/두부 등 사리 추가. 맵지 않게 주문 가능.",
+          icon: <Utensils className="w-5 h-5 text-orange-500" />
+        },
+        {
+          time: "15:00",
+          title: "관광: 5.4 광장 & 올림픽 요트 경기장",
+          desc: "믹스몰에서 도보 10분. 칭다오의 랜드마크 붉은 횃불상 앞에서 기념사진.",
+          icon: <MapPin className="w-5 h-5 text-red-500" />
+        },
+        {
+          time: "16:30",
+          title: "관광: 칭다오 맥주 박물관",
+          desc: "택시 이동 (약 15분). A관(역사) -> B관(시음). 갓 만든 원장맥주 시음.",
+          tip: "여기서 '꿀땅콩' 기념품 대량 구매 추천 (가장 인기 많음).",
+          icon: <Beer className="w-5 h-5 text-yellow-500" />
+        },
+        {
+          time: "19:00",
+          title: "저녁: 하이디라오 훠궈",
+          desc: "택시 이동. 서비스와 위생이 완벽하여 부모님 모시고 가기 가장 좋은 훠궈집.",
+          tip: "토마토탕이나 버섯탕 추천. 쿵푸면 퍼포먼스도 볼거리.",
+          icon: <Utensils className="w-5 h-5 text-orange-500" />
+        }
+      ]
+    },
+    3: {
+      date: "11월 27일 (수)",
+      theme: "바다 풍경과 여유로운 힐링",
+      items: [
+        {
+          time: "10:00",
+          title: "관광: 잔교 (Zhan Qiao)",
+          desc: "숙소에서 택시 기본료 거리. 칭다오의 상징인 해상 누각 산책. 갈매기가 많습니다.",
+          icon: <MapPin className="w-5 h-5 text-blue-500" />
+        },
+        {
+          time: "11:30",
+          title: "관광: 팔대관 풍경구 & 제2해수욕장",
+          desc: "택시 이동. 유럽풍 별장들이 모여있는 걷기 좋은 길. 경사가 없어 부모님 걷기에 좋습니다.",
+          icon: <Camera className="w-5 h-5 text-green-600" />
+        },
+        {
+          time: "13:00",
+          title: "점심: 해도어촌 or 고급 해산물",
+          desc: "팔대관 근처 혹은 윈샤오로 미식거리. 깨끗한 수조가 있는 해산물 식당에서 조개볶음(바지락) 필수.",
+          icon: <Utensils className="w-5 h-5 text-orange-500" />
+        },
+        {
+          time: "15:00",
+          title: "휴식 & 디저트: 에그타르트 & 커피",
+          desc: "KFC 에그타르트(중국 KFC 타르트는 수준급) 혹은 'Lillian Bakery' 스타일 베이커리. 바다 뷰 카페 휴식.",
+          icon: <Coffee className="w-5 h-5 text-amber-700" />
+        },
+        {
+          time: "17:00",
+          title: "마사지: 족생당 등 건전 마사지",
+          desc: "여행 피로 풀기. 60대 아버님 취향 저격. (미리 깔끔한 체인점 검색 추천: 청죽원 등)",
+          icon: <CheckCircle className="w-5 h-5 text-teal-500" />
+        },
+        {
+          time: "19:00",
+          title: "저녁: 숙소 근처 가벼운 만두/요리",
+          desc: "춘화루(Chun He Lou) 등 100년 전통 맛집에서 탕수육과 만두로 마무리.",
+          icon: <Utensils className="w-5 h-5 text-orange-500" />
+        }
+      ]
+    },
+    4: {
+      date: "11월 28일 (목)",
+      theme: "여유로운 귀국",
+      items: [
+        {
+          time: "09:00",
+          title: "조식 및 체크아웃",
+          desc: "여유롭게 준비. 짐 빠진 것 없는지 확인.",
+          icon: <Home className="w-5 h-5 text-indigo-600" />
+        },
+        {
+          time: "10:00",
+          title: "공항으로 출발 (택시 추천)",
+          desc: "마지막 날은 짐이 많고 피곤하므로 택시 권장 (약 1시간 소요).",
+          tip: "택시비 약 150~200위안 예상. 'Jiaodong International Airport' 보여주기.",
+          icon: <Plane className="w-5 h-5 text-gray-500" />
+        },
+        {
+          time: "11:15",
+          title: "공항 도착 및 수속",
+          desc: "MU559편 (13:15 출발) 체크인.",
+          icon: <CheckCircle className="w-5 h-5 text-blue-500" />
+        },
+        {
+          time: "13:15",
+          title: "한국으로 출발",
+          desc: "즐거운 여행 되셨기를 바랍니다!",
+          icon: <Plane className="w-5 h-5 text-blue-600" />
+        }
+      ]
+    }
+  };
+
+  const preparationList = [
+    { name: "비자/여권", desc: "여권 유효기간 6개월 이상, 비자(별지비자 등) 프린트 필수" },
+    { name: "필수 앱 설치", desc: "알리페이(Alipay), 카카오T(해외여행 탭) or 디디추싱, 고덕지도, 파파고" },
+    { name: "날씨/옷차림", desc: "11월 말 칭다오는 한국 초겨울 날씨 (2~9도). 바람이 찹니다. 경량패딩, 목도리 필수." },
+    { name: "상비약", desc: "소화제(기름진 음식 대비), 감기약, 대일밴드" },
+    { name: "변환 어댑터", desc: "중국은 220v를 쓰지만 구멍 모양이 다를 수 있음 (멀티어댑터 추천)" }
+  ];
+
+  const shoppingList = [
+    { name: "칭다오 맥주 박물관 꿀땅콩", desc: "회사 동료 선물용 1순위. 박스 포장 추천." },
+    { name: "칭다오 맥주 초콜릿", desc: "특색 있는 선물." },
+    { name: "차(Tea)", desc: "믹스몰 지하 마트에서 자스민차, 우롱차 등 고급 패키지 구매 (어르신 선물용)." },
+    { name: "옥수수 소세지", desc: "간식용 (육가공품이라 한국 반입 불가, 현지에서 드세요)" }
+  ];
+
+  return (
+    <div className="max-w-md mx-auto bg-gray-50 min-h-screen font-sans text-gray-800 border-x border-gray-200 shadow-xl">
+      {/* Header */}
+      <div className="bg-blue-600 p-6 text-white sticky top-0 z-10 shadow-md">
+        <h1 className="text-2xl font-bold">칭다오 3박 4일</h1>
+        <p className="text-blue-100 text-sm mt-1">아빠와 함께하는 효도 여행 ✈️</p>
+        <div className="mt-4 flex space-x-2 text-sm overflow-x-auto pb-1">
+          <button 
+            onClick={() => setActiveTab('schedule')}
+            className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${activeTab === 'schedule' ? 'bg-white text-blue-600 font-bold' : 'bg-blue-500 text-blue-100'}`}
+          >
+            일정표
+          </button>
+          <button 
+            onClick={() => setActiveTab('prep')}
+            className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${activeTab === 'prep' ? 'bg-white text-blue-600 font-bold' : 'bg-blue-500 text-blue-100'}`}
+          >
+            준비물/날씨
+          </button>
+          <button 
+            onClick={() => setActiveTab('shopping')}
+            className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${activeTab === 'shopping' ? 'bg-white text-blue-600 font-bold' : 'bg-blue-500 text-blue-100'}`}
+          >
+            쇼핑/기념품
+          </button>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="p-4 pb-20">
+        
+        {/* SCHEDULE TAB */}
+        {activeTab === 'schedule' && (
+          <div className="space-y-4">
+            {/* Day Selector */}
+            <div className="flex justify-between bg-white p-2 rounded-xl shadow-sm mb-4">
+              {[1, 2, 3, 4].map((day) => (
+                <button
+                  key={day}
+                  onClick={() => setActiveDay(day)}
+                  className={`flex-1 py-2 text-center rounded-lg text-sm font-medium transition-all ${
+                    activeDay === day 
+                      ? 'bg-blue-100 text-blue-700 ring-2 ring-blue-500' 
+                      : 'text-gray-500 hover:bg-gray-50'
+                  }`}
+                >
+                  Day {day}
+                </button>
+              ))}
+            </div>
+
+            {/* Daily Schedule */}
+            <div className="bg-white rounded-2xl shadow-sm p-5 border border-gray-100">
+              <div className="mb-6 border-b pb-4">
+                <h2 className="text-xl font-bold text-gray-800">{scheduleData[activeDay].date}</h2>
+                <p className="text-blue-600 font-medium text-sm mt-1">{scheduleData[activeDay].theme}</p>
+              </div>
+
+              <div className="space-y-8 relative before:absolute before:inset-0 before:ml-2.5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+                {scheduleData[activeDay].items.map((item, index) => (
+                  <div key={index} className="relative flex items-start group">
+                    <div className="absolute left-0 top-1 h-5 w-5 rounded-full border-2 border-slate-300 bg-white group-hover:border-blue-500 transition-colors z-10 flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors"></div>
+                    </div>
+                    <div className="ml-10 w-full">
+                      <span className="text-xs font-bold text-blue-500 bg-blue-50 px-2 py-0.5 rounded border border-blue-100 mb-1 inline-block">
+                        {item.time}
+                      </span>
+                      <div className="flex items-center space-x-2 mb-1">
+                        {item.icon}
+                        <h3 className="text-lg font-bold text-gray-800 leading-tight">{item.title}</h3>
+                      </div>
+                      <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                      {item.tip && (
+                        <div className="mt-2 bg-yellow-50 p-3 rounded-lg border border-yellow-100 flex gap-2">
+                          <Info className="w-4 h-4 text-yellow-600 flex-shrink-0 mt-0.5" />
+                          <p className="text-xs text-yellow-800 font-medium">{item.tip}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Transport Info Box for Day 1 */}
+            {activeDay === 1 && (
+              <div className="bg-slate-800 text-slate-100 p-4 rounded-xl shadow-lg mt-4">
+                <h4 className="font-bold flex items-center gap-2 mb-2 text-white">
+                  <Train className="w-4 h-4" /> 공항 → 숙소 상세 경로
+                </h4>
+                <ol className="text-sm space-y-2 list-decimal list-inside text-slate-300">
+                  <li>공항 지하 <strong>Metro Line 8</strong> 탑승 (Jiaodong Airport)</li>
+                  <li>약 45분 이동 후 <strong>Qingdao North Railway Station</strong> 하차</li>
+                  <li><strong>Line 1 (Wangjiagang 방향)</strong> 으로 환승</li>
+                  <li>약 25분 이동 후 <strong>Zhongshan Road</strong> 역 하차</li>
+                  <li>D출구로 나와 도보 약 5분 (Jiaozhou Road 67번지)</li>
+                </ol>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* PREPARATION TAB */}
+        {activeTab === 'prep' && (
+          <div className="space-y-4">
+            <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                <CloudSun className="w-5 h-5 text-blue-500" /> 11월 말 칭다오 날씨
+              </h3>
+              <div className="flex justify-between items-center bg-blue-50 p-4 rounded-xl mb-4">
+                <div className="text-center">
+                  <span className="block text-2xl font-bold text-gray-800">3°C</span>
+                  <span className="text-xs text-gray-500">최저</span>
+                </div>
+                <div className="h-8 w-px bg-blue-200"></div>
+                <div className="text-center">
+                  <span className="block text-2xl font-bold text-gray-800">10°C</span>
+                  <span className="text-xs text-gray-500">최고</span>
+                </div>
+                <div className="h-8 w-px bg-blue-200"></div>
+                <div className="text-center w-1/3 text-sm text-gray-700 leading-tight">
+                  바닷바람이 차갑습니다. <br/><b>경량패딩/코트</b> 필수!
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500" /> 필수 준비물 체크리스트
+              </h3>
+              <ul className="space-y-3">
+                {preparationList.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                    <div className="mt-1 min-w-[16px]">
+                      <div className="w-4 h-4 rounded border border-gray-300 bg-white"></div>
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-800 text-sm">{item.name}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{item.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* SHOPPING TAB */}
+        {activeTab === 'shopping' && (
+          <div className="space-y-4">
+            <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+               <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                <ShoppingBag className="w-5 h-5 text-pink-500" /> 추천 기념품 (회사/가족)
+              </h3>
+              <div className="grid grid-cols-1 gap-3">
+                {shoppingList.map((item, idx) => (
+                  <div key={idx} className="bg-pink-50 p-4 rounded-xl border border-pink-100">
+                    <div className="flex justify-between items-start">
+                      <h4 className="font-bold text-gray-800">{item.name}</h4>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+               <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                <Utensils className="w-5 h-5 text-orange-500" /> 60대 입맛 저격 포인트
+              </h3>
+              <ul className="text-sm space-y-2 text-gray-600">
+                <li>• <b>차(Tea):</b> 식사 때마다 따뜻한 차를 주문해 드리면 좋아하십니다.</li>
+                <li>• <b>향신료:</b> '부샹차이(고수 빼주세요)'를 미리 캡처해서 보여주세요.</li>
+                <li>• <b>조식:</b> 호텔 조식이 포함되지 않았다면, 근처 깔끔한 카페나 만두집을 미리 봐두세요.</li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+      </div>
+      
+      {/* Footer Message */}
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t p-3 text-center text-xs text-gray-400 z-10">
+        즐거운 칭다오 여행 되세요! 🇨🇳
+      </div>
+    </div>
+  );
+};
+
+export default QingdaoTravelApp;
