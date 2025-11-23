@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>칭다오 3박 4일 여행 가이드 (완전판)</title>
+    <title>칭다오 3박 4일 여행 가이드 (준비물 체크리스트 추가)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- React & ReactDOM -->
@@ -22,6 +22,8 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        /* 체크박스 커스텀 스타일 */
+        .custom-checkbox:checked + div { text-decoration: line-through; color: #9CA3AF; }
     </style>
 </head>
 <body>
@@ -49,7 +51,9 @@
             Footprints: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 11 3.8 11 8c0 2.85-1.27 5.1-2.3 5.84"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 13 7.8 13 12c0 2.85 1.27 5.1 2.3 5.84"/><path d="M7 21h0"/><path d="M17 21h0"/></svg>,
             Camera: (props) => <Icon {...props} d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />,
             Moon: (props) => <Icon {...props} d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />,
-            CloudSun: (props) => <Icon {...props} d="M12 2v2M4.93 4.93 6.34 6.34M20 12h2M19.07 4.93 17.66 6.34M15.947 12.65a4 4 0 0 0-5.925-4.128M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" />
+            CloudSun: (props) => <Icon {...props} d="M12 2v2M4.93 4.93 6.34 6.34M20 12h2M19.07 4.93 17.66 6.34M15.947 12.65a4 4 0 0 0-5.925-4.128M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" />,
+            CheckSquare: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>,
+            AlertTriangle: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         };
 
         const QingdaoTravelApp = () => {
@@ -57,8 +61,47 @@
             const [activeDay, setActiveDay] = useState(1);
             const [expandedCard, setExpandedCard] = useState(null);
 
+            // 체크리스트 상태 관리
+            const [checkedItems, setCheckedItems] = useState({});
+
+            const toggleCheckbox = (category, item) => {
+                const key = `${category}-${item}`;
+                setCheckedItems(prev => ({
+                    ...prev,
+                    [key]: !prev[key]
+                }));
+            };
+
             const toggleCard = (index) => {
                 setExpandedCard(expandedCard === index ? null : index);
+            };
+
+            // 사용자 메모 기반 체크리스트 + 필수 추가 항목
+            const checklistData = {
+                "의류 & 신발 (메모)": [
+                    "패딩 1", "바지 2", "후드티", "캡모자 1", 
+                    "슬리퍼", "양말", "속옷", "잠옷"
+                ],
+                "필수품 & 전자기기 (메모)": [
+                    "여권", "카드", "중국돈 (현금/환전)", "멀티탭", "보조배터리",
+                    "노트북", "충전기", "카메라", "노트북 마우스", "백팩"
+                ],
+                "세면도구 & 화장품 (메모)": [
+                    "폼클렌징", "바디워시", "치약", "칫솔", "샴푸", 
+                    "헤어오일", "필터기 (샤워기필터)", "물티슈",
+                    "로션", "썬크림", "립밤", "섀도우", "머리끈"
+                ],
+                "기타 용품 (메모)": [
+                    "마스크", "핫팩 + 방석핫팩", "볼펜", "우산", 
+                    "압박스타킹", "숟가락, 젓가락", "감기약"
+                ],
+                "⚠️ 혹시 이건 챙기셨나요? (추가 리마인드)": [
+                    "비자 (별지비자 원본)", "여권 사본 (분실 대비)", 
+                    "유심 / 로밍 / eSIM (미리 신청)",
+                    "설치 앱: 알리페이(결제수단 등록), 카카오T, 고덕지도",
+                    "소화제 (기름진 음식 대비)", "지사제/대일밴드", 
+                    "티슈 (중국 식당 휴지 유료인 곳 있음)"
+                ]
             };
 
             const scheduleData = {
@@ -85,7 +128,7 @@
                         {
                             time: "12:30",
                             title: "점심: 메이다얼 (Meida'er)",
-                            desc: "숙소에서 짐만 풀고 바로 식사. 가지튀김 필수!",
+                            desc: "숙소에서 짐만 풀고 바로 식사. 가지튀김 필수! (챙겨온 수저 사용 추천)",
                             transport: "🚶 도보 약 5분 (350m)",
                             route: "숙소 나와서 오른쪽 큰길 따라 직진",
                             taxiCN: "请带我去 美达尔烧烤 (中山路店)",
@@ -273,6 +316,13 @@
                 }
             };
 
+            const shoppingList = [
+                { name: "칭다오 맥주 박물관 꿀땅콩", desc: "회사 동료 선물용 1순위. 박스 포장 추천." },
+                { name: "칭다오 맥주 초콜릿", desc: "특색 있는 선물." },
+                { name: "차(Tea)", desc: "믹스몰 지하 마트에서 자스민차, 우롱차 등 고급 패키지 구매 (어르신 선물용)." },
+                { name: "옥수수 소세지", desc: "간식용 (육가공품이라 한국 반입 불가, 현지에서 드세요)" }
+            ];
+
             return (
                 <div className="max-w-md mx-auto bg-gray-50 min-h-screen border-x border-gray-200 shadow-xl pb-20">
                     {/* Header */}
@@ -283,93 +333,190 @@
                                 <p className="text-blue-100 text-sm mt-1">11.25(월) ~ 11.28(목)</p>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Day Selector */}
-                    <div className="bg-white p-2 shadow-sm sticky top-[88px] z-10">
-                        <div className="flex justify-between gap-2">
-                            {[1, 2, 3, 4].map((day) => (
-                                <button
-                                    key={day}
-                                    onClick={() => { setActiveDay(day); setExpandedCard(null); }}
-                                    className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${
-                                        activeDay === day 
-                                        ? 'bg-blue-600 text-white shadow-md' 
-                                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-                                    }`}
-                                >
-                                    Day {day}
-                                </button>
-                            ))}
+                        <div className="mt-4 flex space-x-2 text-sm overflow-x-auto pb-1 scrollbar-hide">
+                            <button 
+                                onClick={() => setActiveTab('schedule')}
+                                className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${activeTab === 'schedule' ? 'bg-white text-blue-600 font-bold' : 'bg-blue-500 text-blue-100'}`}
+                            >
+                                일정표
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('checklist')}
+                                className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${activeTab === 'checklist' ? 'bg-white text-blue-600 font-bold ring-2 ring-white/50' : 'bg-blue-500 text-blue-100'}`}
+                            >
+                                ✅ 준비물 (NEW)
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('shopping')}
+                                className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${activeTab === 'shopping' ? 'bg-white text-blue-600 font-bold' : 'bg-blue-500 text-blue-100'}`}
+                            >
+                                쇼핑/기념품
+                            </button>
                         </div>
                     </div>
 
-                    {/* Content */}
+                    {/* Content Area */}
                     <div className="p-4 space-y-4">
-                        {/* Weather & Theme Box */}
-                        <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 mb-2">
-                            <div className="flex justify-between items-start mb-1">
-                                <h2 className="text-lg font-bold text-blue-800">{scheduleData[activeDay].date}</h2>
-                                <span className="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">
-                                    {scheduleData[activeDay].weather}
-                                </span>
-                            </div>
-                            <p className="text-sm text-blue-600">{scheduleData[activeDay].theme}</p>
-                        </div>
-
-                        {scheduleData[activeDay].items.map((item, index) => (
-                            <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                                <div className="p-4 flex gap-4">
-                                    <div className="flex flex-col items-center gap-1 min-w-[3rem]">
-                                        <span className="text-xs font-bold text-gray-400">{item.time}</span>
-                                        <div className="p-2 bg-gray-50 rounded-full">
-                                            {item.icon}
-                                        </div>
-                                        {index !== scheduleData[activeDay].items.length - 1 && (
-                                            <div className="w-0.5 h-full bg-gray-100 my-1"></div>
-                                        )}
-                                    </div>
+                        
+                        {/* 1. CHECKLIST TAB (NEW) */}
+                        {activeTab === 'checklist' && (
+                            <div className="space-y-6 animate-fade-in">
+                                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+                                    <h3 className="font-bold text-lg mb-2 text-gray-800 flex items-center gap-2">
+                                        <Icons.CheckSquare className="text-green-600" />
+                                        짐싸기 체크리스트
+                                    </h3>
+                                    <p className="text-sm text-gray-500 mb-4">작성해주신 메모를 옮겨 적었습니다. 터치해서 체크하세요!</p>
                                     
-                                    <div className="flex-1 pb-2">
-                                        <h3 className="font-bold text-gray-800 text-lg leading-tight">{item.title}</h3>
-                                        <p className="text-sm text-gray-600 mt-1 leading-relaxed whitespace-pre-line">{item.desc}</p>
-                                        
-                                        {/* 이동 정보 (클릭 시 중국어 카드 확장) */}
-                                        {item.transport && (
-                                            <div 
-                                                onClick={() => toggleCard(index)}
-                                                className="mt-3 bg-slate-50 p-2.5 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition-colors group"
-                                            >
-                                                <div className="flex items-start gap-2 text-xs font-medium text-slate-700 mb-1">
-                                                    {item.transport.includes('택시') ? <Icons.Car className="w-4 h-4 text-slate-500 flex-shrink-0"/> : <Icons.Footprints className="w-4 h-4 text-slate-500 flex-shrink-0"/>}
-                                                    <div className="flex-1">
-                                                        <span className="font-bold block mb-0.5">{item.transport}</span>
-                                                        {item.route && <span className="text-slate-500 block">💡 {item.route}</span>}
-                                                    </div>
-                                                </div>
-                                                
-                                                {item.taxiCN && (
-                                                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-200 text-blue-600 text-xs font-bold">
-                                                        <span>🚕 기사님 보여주기 (클릭)</span>
-                                                        <span className={`transform transition-transform ${expandedCard === index ? 'rotate-180' : ''}`}>▼</span>
-                                                    </div>
-                                                )}
+                                    {Object.entries(checklistData).map(([category, items]) => (
+                                        <div key={category} className="mb-6 last:mb-0">
+                                            <h4 className={`font-bold text-sm mb-3 px-2 py-1 rounded inline-block ${category.includes('⚠️') ? 'bg-red-50 text-red-600' : 'bg-gray-100 text-gray-600'}`}>
+                                                {category}
+                                            </h4>
+                                            <div className="space-y-2">
+                                                {items.map((item, idx) => (
+                                                    <label key={idx} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors">
+                                                        <input 
+                                                            type="checkbox" 
+                                                            className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 custom-checkbox"
+                                                            checked={!!checkedItems[`${category}-${item}`]}
+                                                            onChange={() => toggleCheckbox(category, item)}
+                                                        />
+                                                        <div className="text-sm font-medium text-gray-700 select-none">
+                                                            {item}
+                                                        </div>
+                                                    </label>
+                                                ))}
                                             </div>
-                                        )}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 text-sm text-yellow-800">
+                                    <strong>💡 팁:</strong> 샤워기 필터는 중국 여행 필수품입니다! 수질이 달라서 피부가 예민하시면 꼭 챙기세요.
+                                </div>
+                            </div>
+                        )}
+
+                        {/* 2. SHOPPING TAB */}
+                        {activeTab === 'shopping' && (
+                            <div className="space-y-4 animate-fade-in">
+                                <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                                <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                                    <Icons.ShoppingBag className="w-5 h-5 text-pink-500" /> 추천 기념품 (회사/가족)
+                                </h3>
+                                <div className="grid grid-cols-1 gap-3">
+                                    {shoppingList.map((item, idx) => (
+                                    <div key={idx} className="bg-pink-50 p-4 rounded-xl border border-pink-100">
+                                        <div className="flex justify-between items-start">
+                                        <h4 className="font-bold text-gray-800">{item.name}</h4>
+                                        </div>
+                                        <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
+                                    </div>
+                                    ))}
+                                </div>
+                                </div>
+                                
+                                <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                                <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                                    <Icons.Utensils className="w-5 h-5 text-orange-500" /> 60대 입맛 저격 포인트
+                                </h3>
+                                <ul className="text-sm space-y-2 text-gray-600">
+                                    <li>• <b>차(Tea):</b> 식사 때마다 따뜻한 차를 주문해 드리면 좋아하십니다.</li>
+                                    <li>• <b>향신료:</b> '부샹차이(고수 빼주세요)'를 미리 캡처해서 보여주세요.</li>
+                                    <li>• <b>조식:</b> 호텔 조식이 포함되지 않았다면, 근처 깔끔한 카페나 만두집을 미리 봐두세요.</li>
+                                </ul>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* 3. SCHEDULE TAB */}
+                        {activeTab === 'schedule' && (
+                            <div className="animate-fade-in">
+                                {/* Day Selector */}
+                                <div className="bg-white p-2 shadow-sm rounded-xl mb-4 sticky top-[138px] z-10 border border-gray-100">
+                                    <div className="flex justify-between gap-2">
+                                        {[1, 2, 3, 4].map((day) => (
+                                            <button
+                                                key={day}
+                                                onClick={() => { setActiveDay(day); setExpandedCard(null); }}
+                                                className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${
+                                                    activeDay === day 
+                                                    ? 'bg-blue-600 text-white shadow-md' 
+                                                    : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                                }`}
+                                            >
+                                                Day {day}
+                                            </button>
+                                        ))}
                                     </div>
                                 </div>
 
-                                {/* 중국어 카드 확장 영역 */}
-                                {expandedCard === index && item.taxiCN && (
-                                    <div className="bg-blue-600 p-6 text-center animate-fade-in">
-                                        <p className="text-blue-200 text-xs mb-2">기사님께 이 화면을 보여주세요</p>
-                                        <p className="text-white text-2xl font-black leading-snug break-keep">
-                                            {item.taxiCN}
-                                        </p>
+                                {/* Weather & Theme Box */}
+                                <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 mb-2">
+                                    <div className="flex justify-between items-start mb-1">
+                                        <h2 className="text-lg font-bold text-blue-800">{scheduleData[activeDay].date}</h2>
+                                        <span className="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">
+                                            {scheduleData[activeDay].weather}
+                                        </span>
                                     </div>
-                                )}
+                                    <p className="text-sm text-blue-600">{scheduleData[activeDay].theme}</p>
+                                </div>
+
+                                {scheduleData[activeDay].items.map((item, index) => (
+                                    <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-4">
+                                        <div className="p-4 flex gap-4">
+                                            <div className="flex flex-col items-center gap-1 min-w-[3rem]">
+                                                <span className="text-xs font-bold text-gray-400">{item.time}</span>
+                                                <div className="p-2 bg-gray-50 rounded-full">
+                                                    {item.icon}
+                                                </div>
+                                                {index !== scheduleData[activeDay].items.length - 1 && (
+                                                    <div className="w-0.5 h-full bg-gray-100 my-1"></div>
+                                                )}
+                                            </div>
+                                            
+                                            <div className="flex-1 pb-2">
+                                                <h3 className="font-bold text-gray-800 text-lg leading-tight">{item.title}</h3>
+                                                <p className="text-sm text-gray-600 mt-1 leading-relaxed whitespace-pre-line">{item.desc}</p>
+                                                
+                                                {/* 이동 정보 (클릭 시 중국어 카드 확장) */}
+                                                {item.transport && (
+                                                    <div 
+                                                        onClick={() => toggleCard(index)}
+                                                        className="mt-3 bg-slate-50 p-2.5 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition-colors group"
+                                                    >
+                                                        <div className="flex items-start gap-2 text-xs font-medium text-slate-700 mb-1">
+                                                            {item.transport.includes('택시') ? <Icons.Car className="w-4 h-4 text-slate-500 flex-shrink-0"/> : <Icons.Footprints className="w-4 h-4 text-slate-500 flex-shrink-0"/>}
+                                                            <div className="flex-1">
+                                                                <span className="font-bold block mb-0.5">{item.transport}</span>
+                                                                {item.route && <span className="text-slate-500 block">💡 {item.route}</span>}
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        {item.taxiCN && (
+                                                            <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-200 text-blue-600 text-xs font-bold">
+                                                                <span>🚕 기사님 보여주기 (클릭)</span>
+                                                                <span className={`transform transition-transform ${expandedCard === index ? 'rotate-180' : ''}`}>▼</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* 중국어 카드 확장 영역 */}
+                                        {expandedCard === index && item.taxiCN && (
+                                            <div className="bg-blue-600 p-6 text-center animate-fade-in">
+                                                <p className="text-blue-200 text-xs mb-2">기사님께 이 화면을 보여주세요</p>
+                                                <p className="text-white text-2xl font-black leading-snug break-keep">
+                                                    {item.taxiCN}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        )}
                     </div>
 
                     <div className="text-center text-xs text-gray-400 mt-8 mb-4">
@@ -384,5 +531,4 @@
     </script>
 </body>
 </html>
-
 
