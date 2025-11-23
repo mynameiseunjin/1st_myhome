@@ -1,10 +1,11 @@
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>칭다오 3박 4일 여행 가이드 (부모님 동반)</title>
+    <title>칭다오 3박 4일 여행 가이드 (완전판)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- React & ReactDOM -->
@@ -19,6 +20,8 @@
         body { font-family: 'Noto Sans KR', sans-serif; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -41,16 +44,18 @@
             ShoppingBag: (props) => <Icon {...props} d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0" />,
             Beer: (props) => <Icon {...props} d="M17 11h1a3 3 0 0 1 0 6h-1M9 12v6M13 12v6M14 7.5c-1 0-1.44.5-3 .5s-2-.5-3-.5-1.72.5-2.5.5a2.5 2.5 0 0 1 0-5c.78 0 1.57.5 2.5.5S9.44 2 11 2s2 1.5 3 1.5 1.72-.5 2.5-.5a2.5 2.5 0 0 1 0 5c-.78 0-1.5-.5-2.5-.5ZM5 8v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8" />,
             Home: (props) => <Icon {...props} d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10" />,
-            Train: (props) => <Icon {...props} d="M4 11h16M12 3v8M8 19l-2 3M16 19l2 3M4 3h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />,
+            Train: (props) => <Icon {...props} d="M4 11h16M12 3v8M8 19l-2 3M16 19l2 3M4 3h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />,
             Car: (props) => <Icon {...props} d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2" />,
             Footprints: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 11 3.8 11 8c0 2.85-1.27 5.1-2.3 5.84"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 13 7.8 13 12c0 2.85 1.27 5.1 2.3 5.84"/><path d="M7 21h0"/><path d="M17 21h0"/></svg>,
-            Camera: (props) => <Icon {...props} d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            Camera: (props) => <Icon {...props} d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />,
+            Moon: (props) => <Icon {...props} d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />,
+            CloudSun: (props) => <Icon {...props} d="M12 2v2M4.93 4.93 6.34 6.34M20 12h2M19.07 4.93 17.66 6.34M15.947 12.65a4 4 0 0 0-5.925-4.128M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" />
         };
 
         const QingdaoTravelApp = () => {
             const [activeTab, setActiveTab] = useState('schedule');
             const [activeDay, setActiveDay] = useState(1);
-            const [expandedCard, setExpandedCard] = useState(null); // 택시 카드 확장용
+            const [expandedCard, setExpandedCard] = useState(null);
 
             const toggleCard = (index) => {
                 setExpandedCard(expandedCard === index ? null : index);
@@ -59,181 +64,202 @@
             const scheduleData = {
                 1: {
                     date: "11월 25일 (월)",
-                    theme: "칭다오 도착 및 역사 산책",
+                    weather: "⛅ 3°C / 10°C (맑음, 바람 약간)",
+                    theme: "도착 & 구시가지 낭만 산책",
                     items: [
-                        {
-                            time: "08:30",
-                            title: "인천공항 출발",
-                            desc: "아침 8시 30분 비행기 탑승",
-                            icon: <Icons.Plane className="text-blue-500" />
-                        },
                         {
                             time: "09:20",
                             title: "칭다오 공항 도착",
-                            desc: "입국 수속 및 짐 찾기 (약 1시간 소요)",
+                            desc: "입국 수속 및 짐 찾기.",
                             icon: <Icons.MapPin className="text-blue-500" />
                         },
                         {
                             time: "10:30",
                             title: "숙소 이동 (지하철)",
-                            desc: "공항역(8호선) → 칭다오베이역(1호선 환승) → 중산로역 D출구",
-                            detail: "도보 이동이 포함되나 지하철이 가장 빠르고 정확함.",
-                            transport: "지하철 약 1시간 20분 / 택시 이용 시 약 50분 (약 150위안)",
+                            desc: "지하철이 가장 정확합니다.",
+                            detail: "경로: 공항역(8호선) 탑승 → 칭다오베이역(1호선 환승) → 중산로역 D출구",
+                            transport: "🚇 지하철 약 1시간 20분 / 🚕 택시 약 50분 (약 150위안)",
                             taxiCN: "请带我去 胶州路67号 (青岛城市斯特芮恩酒店)",
                             icon: <Icons.Train className="text-green-600" />
                         },
                         {
                             time: "12:30",
-                            title: "점심: 춘화루 (Chun He Lou)",
-                            desc: "숙소에 짐 맡기고 바로 식사. 100년 전통 산동요리(탕수육, 만두).",
-                            transport: "숙소에서 도보 5분 (중산로 방향)",
-                            taxiCN: "请带我去 春和楼 (中山路)",
-                            icon: <Icons.Utensils className="text-orange-500" />
-                        },
-                        {
-                            time: "14:00",
-                            title: "숙소 체크인 및 휴식",
-                            desc: "칭다오 시티 스테이 인. 잠시 휴식 후 오후 일정 시작.",
-                            icon: <Icons.Home className="text-indigo-600" />
-                        },
-                        {
-                            time: "15:30",
-                            title: "천주교당 & 피차이위안",
-                            desc: "성 미카엘 성당 앞에서 사진 촬영 후 꼬치거리(피차이위안) 구경.",
-                            transport: "숙소/춘화루에서 도보 5~10분 거리",
-                            taxiCN: "请带我去 天主教堂",
-                            icon: <Icons.Camera className="text-purple-500" />
-                        },
-                        {
-                            time: "18:00",
-                            title: "저녁: 메이다얼 (Meida'er)",
-                            desc: "가지튀김과 바지락 볶음, 양꼬치. 로컬 맛집.",
-                            transport: "천주교당에서 도보 10분",
+                            title: "점심: 메이다얼 (Meida'er)",
+                            desc: "숙소에서 짐만 풀고 바로 식사. 가지튀김 필수!",
+                            transport: "🚶 도보 약 5분 (350m)",
+                            route: "숙소 나와서 오른쪽 큰길 따라 직진",
                             taxiCN: "请带我去 美达尔烧烤 (中山路店)",
                             icon: <Icons.Utensils className="text-orange-500" />
                         },
                         {
-                            time: "20:00",
-                            title: "디저트: 패왕차희 (BaWangChaJi)",
-                            desc: "시그니처 '보야절현(자스민 밀크티)' 맛보기.",
-                            transport: "식당 근처 도보 이동",
-                            taxiCN: "请带我去 霸王茶姬 (中山路店)",
-                            icon: <Icons.Coffee className="text-amber-600" />
+                            time: "14:00",
+                            title: "숙소 체크인 & 휴식",
+                            desc: "첫날 새벽 기상으로 피곤하니 잠시 낮잠.",
+                            icon: <Icons.Home className="text-indigo-600" />
+                        },
+                        {
+                            time: "16:00",
+                            title: "중산로 낭만 산책",
+                            desc: "1. 천주교당 (사진) \n2. 광흥리 (Guangxingli) - 예쁜 근대 건축물 & 핫플",
+                            transport: "🚶 도보 약 10~15분 (슬슬 걷기 좋음)",
+                            route: "숙소 -> 천주교당 -> 광흥리 순서로 이동",
+                            taxiCN: "请带我去 广兴里 (Guangxingli)",
+                            icon: <Icons.Camera className="text-purple-500" />
+                        },
+                        {
+                            time: "17:30",
+                            title: "카페: 1907 무비 클럽",
+                            desc: "옛 독일 선원 클럽. 분위기 깡패.",
+                            transport: "🚶 광흥리에서 도보 10분",
+                            taxiCN: "请带我去 1907光影俱乐部",
+                            icon: <Icons.Coffee className="text-amber-700" />
+                        },
+                        {
+                            time: "19:00",
+                            title: "저녁: 춘화루 or 피차이위안",
+                            desc: "피차이위안 야시장에서 간식 사먹거나 춘화루 만두.",
+                            transport: "🚶 1907에서 도보 5분",
+                            taxiCN: "请带我去 劈柴院 (Pichai Yuan)",
+                            icon: <Icons.Utensils className="text-orange-500" />
                         }
                     ]
                 },
                 2: {
                     date: "11월 26일 (화)",
-                    theme: "신시가지 쇼핑 & 맥주",
+                    weather: "☀️ 2°C / 9°C (맑음, 추움)",
+                    theme: "신시가지 쇼핑 & 야경",
                     items: [
                         {
-                            time: "10:00",
-                            title: "아점: 딘타이펑 (믹스몰)",
-                            desc: "깔끔하고 실패 없는 딤섬. 60대 입맛 저격.",
-                            transport: "숙소에서 택시 20~25분 (약 30위안)",
-                            taxiCN: "请带我去 青岛万象城 (MixC)",
-                            icon: <Icons.Utensils className="text-orange-500" />
-                        },
-                        {
-                            time: "11:30",
+                            time: "10:30",
                             title: "쇼핑: 믹스몰 (완샹청)",
-                            desc: "샤오미 매장 구경 및 마트(Ole)에서 기념품(차, 술) 구매.",
-                            transport: "식당과 같은 건물",
+                            desc: "구시가지 -> 신시가지로 이동.",
+                            transport: "🚕 택시 약 25분 / 비용: 약 30~35위안",
+                            taxiCN: "请带我去 青岛万象城 (MixC)",
                             icon: <Icons.ShoppingBag className="text-pink-500" />
                         },
                         {
-                            time: "13:30",
-                            title: "점심 2차: 루위 (농어구이)",
-                            desc: "믹스몰 내 위치. 마늘맛 농어구이 추천.",
-                            transport: "믹스몰 내 이동",
+                            time: "12:30",
+                            title: "점심: 루위 (농어구이)",
+                            desc: "믹스몰 내 위치. 마늘맛 농어구이.",
+                            transport: "🚶 쇼핑몰 내 도보 이동",
                             icon: <Icons.Utensils className="text-orange-500" />
                         },
                         {
-                            time: "15:00",
+                            time: "14:30",
                             title: "5.4 광장 & 요트 경기장",
                             desc: "칭다오의 랜드마크 붉은 횃불상.",
-                            transport: "믹스몰에서 도보 10~15분 (산책로 연결됨)",
+                            transport: "🚶 믹스몰에서 도보 10분 (광장 연결됨)",
                             taxiCN: "请带我去 五四广场",
                             icon: <Icons.MapPin className="text-red-500" />
                         },
                         {
-                            time: "16:30",
+                            time: "16:00",
                             title: "칭다오 맥주 박물관",
-                            desc: "갓 만든 원장 맥주 시음 & 꿀땅콩 구매.",
-                            transport: "5.4광장에서 택시 15분 (약 20위안)",
+                            desc: "맥주 시음 & 꿀땅콩 구매.",
+                            transport: "🚕 택시 약 15분 / 비용: 약 20위안",
                             taxiCN: "请带我去 青岛啤酒博物馆",
                             icon: <Icons.Beer className="text-yellow-500" />
                         },
                         {
-                            time: "19:00",
+                            time: "18:00",
                             title: "저녁: 하이디라오 훠궈",
-                            desc: "최고의 서비스. 토마토탕/버섯탕 추천.",
-                            transport: "박물관에서 택시 10분 (가까운 지점)",
-                            taxiCN: "请带我去 海底捞火锅",
+                            desc: "부모님 모시기 가장 좋은 서비스.",
+                            transport: "🚕 택시 약 10분 / 비용: 기본료(10위안) 내외",
+                            taxiCN: "请带我去 海底捞火锅 (台东店)",
                             icon: <Icons.Utensils className="text-orange-500" />
+                        },
+                        {
+                            time: "20:00",
+                            title: "야경: 올림픽 요트 경기장",
+                            desc: "5.4 광장의 조명을 바다 건너편에서 보는 것이 가장 예쁩니다.",
+                            transport: "🚕 택시 약 15분 / 비용: 약 20위안",
+                            taxiCN: "请带我去 奥帆中心 (Olympic Sailing Center)",
+                            icon: <Icons.Moon className="text-blue-800" />
                         }
                     ]
                 },
                 3: {
                     date: "11월 27일 (수)",
-                    theme: "바다 힐링 & 휴식",
+                    weather: "⛅ 3°C / 11°C (구름 조금)",
+                    theme: "바다 힐링 & 불야성(야경 끝판왕)",
                     items: [
                         {
                             time: "10:00",
                             title: "잔교 (Zhan Qiao)",
-                            desc: "칭다오 맥주 라벨에 있는 그곳. 갈매기 구경.",
-                            transport: "숙소에서 도보 15분 or 택시 기본료(10위안)",
+                            desc: "아침 바다 산책. 갈매기 먹이주기.",
+                            transport: "🚶 도보 15분 or 🚕 택시 5분 (기본료 10위안)",
                             taxiCN: "请带我去 栈桥",
                             icon: <Icons.MapPin className="text-blue-500" />
                         },
                         {
-                            time: "11:30",
+                            time: "11:00",
                             title: "팔대관 풍경구",
-                            desc: "유럽풍 별장 거리 산책. 길이 평탄해서 걷기 좋음.",
-                            transport: "잔교에서 택시 15분 (약 20위안)",
+                            desc: "유럽풍 별장 거리.",
+                            transport: "🚕 택시 약 15분 / 비용: 약 20~25위안",
                             taxiCN: "请带我去 八大关",
                             icon: <Icons.Camera className="text-green-600" />
                         },
                         {
-                            time: "13:00",
-                            title: "점심: 해도어촌 (해산물)",
-                            desc: "신선한 해산물 요리. 바지락, 새우, 전복 등.",
-                            transport: "팔대관에서 택시 10분 (운소로 미식거리)",
-                            taxiCN: "请带我去 云霄路 海岛渔村",
+                            time: "12:30",
+                            title: "점심: 명가딤섬 (Ming Jia)",
+                            desc: "고급스러운 현지 식당. 새우 물만두 추천.",
+                            transport: "🚕 택시 약 10분 / 비용: 약 15위안",
+                            taxiCN: "请带我去 铭家小厨 (Ming Jia Xiao Chu)",
                             icon: <Icons.Utensils className="text-orange-500" />
                         },
                         {
-                            time: "15:00",
-                            title: "디저트: 에그타르트 & 커피",
-                            desc: "KFC 에그타르트 혹은 근처 카페에서 휴식.",
-                            transport: "식당 근처 도보 이동",
+                            time: "14:30",
+                            title: "디저트: 양유 베이커리",
+                            desc: "로컬 빵집에서 에그타르트나 빵 간식.",
+                            transport: "🚶 근처 도보 이동",
+                            taxiCN: "请带我去 良友金伴 (Liangyou Bakery)",
                             icon: <Icons.Coffee className="text-amber-700" />
                         },
                         {
-                            time: "17:00",
-                            title: "전신 마사지",
-                            desc: "여행 피로 풀기. 족생당(Zu Sheng Tang) 등.",
-                            transport: "택시 5~10분 이동",
-                            taxiCN: "请带我去 足生堂 (或者 按摩店)",
-                            icon: <Icons.Car className="text-teal-500" />
+                            time: "16:30",
+                            title: "명월 산해간 불야성 이동",
+                            desc: "칭다오 서쪽(황다오)에 위치한 화려한 야경 명소. 거리가 꽤 멉니다.",
+                            transport: "🚕 택시 약 50분~1시간 / 비용: 약 80~100위안",
+                            detail: "아버님 피곤하지 않게 택시 뒷좌석에서 편히 가세요.",
+                            taxiCN: "请带我去 明月·山海间不夜城 (西海岸新区)",
+                            icon: <Icons.Car className="text-purple-600" />
+                        },
+                         {
+                            time: "18:00",
+                            title: "불야성 구경 & 저녁(간식)",
+                            desc: "엄청난 스케일의 야경과 퍼레이드 구경. 내부에 먹거리가 많아 저녁 해결 가능.",
+                            transport: "내부 도보 관람",
+                            icon: <Icons.Moon className="text-yellow-600" />
+                        },
+                        {
+                            time: "20:30",
+                            title: "숙소 복귀",
+                            desc: "긴 이동이었으니 숙소로 복귀하여 휴식.",
+                            transport: "🚕 택시 약 1시간 / 비용: 약 100위안",
+                            taxiCN: "请带我去 胶州路67号 (青岛城市斯特芮恩酒店)",
+                            icon: <Icons.Home className="text-indigo-600" />
                         }
                     ]
                 },
                 4: {
                     date: "11월 28일 (목)",
-                    theme: "귀국 준비",
+                    weather: "☁️ 4°C / 10°C (흐림)",
+                    theme: "간단 아침 & 귀국",
                     items: [
                         {
-                            time: "09:00",
-                            title: "체크아웃",
-                            desc: "짐 빠진 것 없는지 확인.",
-                            icon: <Icons.Home className="text-indigo-600" />
+                            time: "08:30",
+                            title: "아침: 훈툰 or 맥도날드",
+                            desc: "숙소 근처 따뜻한 훈툰(물만두국) 혹은 맥도날드 맥모닝.",
+                            transport: "🚶 도보 5분 이내",
+                            detail: "숙소 나와서 왼쪽/오른쪽 조금만 걸으면 식당 많음.",
+                            taxiCN: "请带我去 附近的馄饨店 (근처 훈툰 가게)",
+                            icon: <Icons.Coffee className="text-orange-400" />
                         },
                         {
                             time: "09:30",
-                            title: "공항으로 출발 (택시 권장)",
-                            desc: "마지막 날은 편하게 택시 이동 추천.",
-                            transport: "택시 약 1시간 소요 (약 150~200위안)",
+                            title: "체크아웃 & 공항 출발",
+                            desc: "마지막 날은 짐이 많으니 택시 강추.",
+                            transport: "🚕 택시 약 50분 / 비용: 약 150위안 내외",
                             taxiCN: "请带我去 青岛胶东国际机场",
                             icon: <Icons.Plane className="text-gray-500" />
                         },
@@ -280,8 +306,14 @@
 
                     {/* Content */}
                     <div className="p-4 space-y-4">
+                        {/* Weather & Theme Box */}
                         <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 mb-2">
-                            <h2 className="text-lg font-bold text-blue-800">{scheduleData[activeDay].date}</h2>
+                            <div className="flex justify-between items-start mb-1">
+                                <h2 className="text-lg font-bold text-blue-800">{scheduleData[activeDay].date}</h2>
+                                <span className="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">
+                                    {scheduleData[activeDay].weather}
+                                </span>
+                            </div>
                             <p className="text-sm text-blue-600">{scheduleData[activeDay].theme}</p>
                         </div>
 
@@ -300,21 +332,24 @@
                                     
                                     <div className="flex-1 pb-2">
                                         <h3 className="font-bold text-gray-800 text-lg leading-tight">{item.title}</h3>
-                                        <p className="text-sm text-gray-600 mt-1 leading-relaxed">{item.desc}</p>
+                                        <p className="text-sm text-gray-600 mt-1 leading-relaxed whitespace-pre-line">{item.desc}</p>
                                         
                                         {/* 이동 정보 (클릭 시 중국어 카드 확장) */}
                                         {item.transport && (
                                             <div 
                                                 onClick={() => toggleCard(index)}
-                                                className="mt-3 bg-slate-50 p-2.5 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition-colors"
+                                                className="mt-3 bg-slate-50 p-2.5 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition-colors group"
                                             >
-                                                <div className="flex items-center gap-2 text-xs font-bold text-slate-600 mb-1">
-                                                    {item.transport.includes('택시') ? <Icons.Car className="w-3 h-3"/> : <Icons.Footprints className="w-3 h-3"/>}
-                                                    <span>이동: {item.transport}</span>
+                                                <div className="flex items-start gap-2 text-xs font-medium text-slate-700 mb-1">
+                                                    {item.transport.includes('택시') ? <Icons.Car className="w-4 h-4 text-slate-500 flex-shrink-0"/> : <Icons.Footprints className="w-4 h-4 text-slate-500 flex-shrink-0"/>}
+                                                    <div className="flex-1">
+                                                        <span className="font-bold block mb-0.5">{item.transport}</span>
+                                                        {item.route && <span className="text-slate-500 block">💡 {item.route}</span>}
+                                                    </div>
                                                 </div>
                                                 
                                                 {item.taxiCN && (
-                                                    <div className="flex items-center justify-between mt-1 text-blue-600 text-xs font-bold">
+                                                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-200 text-blue-600 text-xs font-bold">
                                                         <span>🚕 기사님 보여주기 (클릭)</span>
                                                         <span className={`transform transition-transform ${expandedCard === index ? 'rotate-180' : ''}`}>▼</span>
                                                     </div>
@@ -349,3 +384,5 @@
     </script>
 </body>
 </html>
+
+
