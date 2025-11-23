@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>칭다오 3박 4일 여행 가이드 (준비물 체크리스트 추가)</title>
+    <title>칭다오 3박 4일 여행 가이드 (2일차 코스 최적화)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- React & ReactDOM -->
@@ -170,53 +170,54 @@
                 2: {
                     date: "11월 26일 (화)",
                     weather: "☀️ 2°C / 9°C (맑음, 추움)",
-                    theme: "신시가지 쇼핑 & 야경",
+                    theme: "미식 & 맥주 & 야경 (동선 최적화)",
                     items: [
                         {
-                            time: "10:30",
-                            title: "쇼핑: 믹스몰 (완샹청)",
-                            desc: "구시가지 -> 신시가지로 이동.",
-                            transport: "🚕 택시 약 25분 / 비용: 약 30~35위안",
+                            time: "11:30",
+                            title: "점심: 하이디라오 (타이동 완다점)",
+                            desc: "맥주박물관 근처 지점. 서비스 최고, 토마토탕 추천.",
+                            detail: "주소: 台东三路63号万达广场F4 (완다광장 4층)",
+                            transport: "🚕 숙소에서 택시 약 15~20분 / 비용: 약 20위안",
+                            taxiCN: "请带我去 台东万达广场 (海底捞火锅)",
+                            icon: <Icons.Utensils className="text-orange-500" />
+                        },
+                        {
+                            time: "13:30",
+                            title: "칭다오 맥주 박물관",
+                            desc: "식사 장소에서 아주 가깝습니다. 갓 만든 원장맥주 시음.",
+                            transport: "🚕 택시 3~5분 (기본료) / 🚶 도보 15~20분",
+                            detail: "가깝지만 아버님 위해 택시 추천. (도보 1.2km)",
+                            taxiCN: "请带我去 青岛啤酒博物馆 (登州路)",
+                            icon: <Icons.Beer className="text-yellow-500" />
+                        },
+                        {
+                            time: "16:00",
+                            title: "신시가지 이동 (믹스몰)",
+                            desc: "박물관 관람 후 5.4광장 쪽으로 이동.",
+                            transport: "🚕 택시 약 20~25분 / 비용: 약 30위안",
                             taxiCN: "请带我去 青岛万象城 (MixC)",
                             icon: <Icons.ShoppingBag className="text-pink-500" />
                         },
                         {
-                            time: "12:30",
-                            title: "점심: 루위 (농어구이)",
-                            desc: "믹스몰 내 위치. 마늘맛 농어구이.",
-                            transport: "🚶 쇼핑몰 내 도보 이동",
-                            icon: <Icons.Utensils className="text-orange-500" />
+                            time: "16:30",
+                            title: "쇼핑: 믹스몰 (완샹청)",
+                            desc: "저녁 시간 전까지 여유롭게 쇼핑. 지하 Ole 마트 기념품.",
+                            transport: "🚶 쇼핑몰 내부",
+                            icon: <Icons.ShoppingBag className="text-pink-500" />
                         },
-                        {
-                            time: "14:30",
-                            title: "5.4 광장 & 요트 경기장",
-                            desc: "칭다오의 랜드마크 붉은 횃불상.",
-                            transport: "🚶 믹스몰에서 도보 10분 (광장 연결됨)",
-                            taxiCN: "请带我去 五四广场",
-                            icon: <Icons.MapPin className="text-red-500" />
-                        },
-                        {
-                            time: "16:00",
-                            title: "칭다오 맥주 박물관",
-                            desc: "맥주 시음 & 꿀땅콩 구매.",
-                            transport: "🚕 택시 약 15분 / 비용: 약 20위안",
-                            taxiCN: "请带我去 青岛啤酒博物馆",
-                            icon: <Icons.Beer className="text-yellow-500" />
-                        },
-                        {
-                            time: "18:00",
-                            title: "저녁: 하이디라오 훠궈",
-                            desc: "부모님 모시기 가장 좋은 서비스.",
-                            transport: "🚕 택시 약 10분 / 비용: 기본료(10위안) 내외",
-                            taxiCN: "请带我去 海底捞火锅 (台东店)",
+                         {
+                            time: "18:30",
+                            title: "저녁: 루위 (믹스몰점)",
+                            desc: "믹스몰 내 위치. 농어구이(마늘맛) + 배추/두부 등 사리 추가.",
+                            transport: "🚶 믹스몰 내 식당가",
                             icon: <Icons.Utensils className="text-orange-500" />
                         },
                         {
                             time: "20:00",
-                            title: "야경: 올림픽 요트 경기장",
-                            desc: "5.4 광장의 조명을 바다 건너편에서 보는 것이 가장 예쁩니다.",
-                            transport: "🚕 택시 약 15분 / 비용: 약 20위안",
-                            taxiCN: "请带我去 奥帆中心 (Olympic Sailing Center)",
+                            title: "야경: 5.4 광장",
+                            desc: "저녁 먹고 소화시킬 겸 바로 앞 광장 산책. 붉은 횃불과 조명쇼 감상.",
+                            transport: "🚶 믹스몰에서 도보 5~10분 (연결됨)",
+                            taxiCN: "请带我去 五四广场",
                             icon: <Icons.Moon className="text-blue-800" />
                         }
                     ]
@@ -531,4 +532,7 @@
     </script>
 </body>
 </html>
+
+
+
 
