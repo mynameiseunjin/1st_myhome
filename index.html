@@ -53,18 +53,18 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
         );
 
-        // --- 여행 데이터 (예상 경비 추가됨) ---
+        // --- 여행 데이터 ---
         const itineraryData = {
             1: {
                 date: "1월 14일 (수)",
-                title: "도착 & 나하 시장 구경",
-                routeLink: "https://www.google.com/maps/dir/Naha+Airport/海鮮食堂+太陽/Makishi+Public+Market/Okinawa+Plaisant+Villa/808+Poke+Bowls+Okinawa/",
+                title: "도착 & 중부 아메리칸 빌리지",
+                routeLink: "https://www.google.com/maps/dir/Naha+Airport/Hamaya+Soba/American+Village/Okinawa+Plaisant+Villa/808+Poke+Bowls+Okinawa/",
                 cost: {
-                    food: "286,000",
+                    food: "298,000",
                     entrance: "0",
-                    gas: "10,000",
-                    total: "296,000",
-                    note: "식사(2회) 및 나하-온나 이동 주유비 추정."
+                    gas: "15,000",
+                    total: "313,000",
+                    note: "식사(2회), 카페(1회) 및 나하-온나 이동 주유비 추정."
                 },
                 schedule: [
                 {
@@ -82,30 +82,30 @@
                     icon: <Navigation className="w-6 h-6" />
                 },
                 {
-                    time: "13:00",
-                    title: "점심: 해선식당 티다 (Teida)",
-                    desc: "현지 이름 '海鮮食堂 太陽'. 부드러운 생선살과 신선한 덮밥이 일품인 공항 근처 맛집.",
-                    imgPrompt: "Japanese seafood donburi fresh sashimi bowl",
-                    price: "1인 약 1,500엔 (14,000원)",
-                    location: "海鮮食堂 太陽",
+                    time: "13:30",
+                    title: "점심: 하마야 소바 (Hamaya Soba)",
+                    desc: "입에서 살살 녹는 연골 소키(갈비) 국수. 어르신 선호도 1위. 아메리칸 빌리지 동선에 맞춰 미리 방문.",
+                    imgPrompt: "Okinawa soba soft pork ribs soup",
+                    price: "1인 약 800엔 (7,500원)",
+                    location: "Hamaya Soba",
                     type: "meal",
                     alternatives: [
-                        { name: "이유마치 수산시장", desc: "해산물 시장" },
-                        { name: "유나미 소바", desc: "자가제면 소바" }
+                        { name: "유나미 소바", desc: "자가제면 소바" },
+                        { name: "유쿠루", desc: "현지식 가정 요리" }
                     ],
-                    mainDish: "카이센동, 생선 버터구이 정식",
-                    tips: "맵 링크가 정확하지 않다면 '海鮮食堂 太陽'으로 검색하세요."
+                    mainDish: "하마야 소바, 쥬시(볶음밥)",
+                    tips: "인기 맛집이라 대기 가능성 있음."
                 },
                 {
-                    time: "14:30",
-                    title: "마키시 공설시장 (Makishi)",
-                    desc: "활기찬 전통 시장 구경. 어르신들 간식 거리 구매하기 좋음.",
-                    location: "Makishi Public Market",
+                    time: "15:00",
+                    title: "아메리칸 빌리지",
+                    desc: "활기찬 중부 해변 마을 구경 및 산책. Zhyvago Coffee Roastery에서 커피 휴식 (음료 약 600엔).",
+                    location: "American Village",
                     type: "activity",
-                    icon: <Users className="w-6 h-6" />
+                    icon: <Sun className="w-6 h-6" />
                 },
                 {
-                    time: "16:30",
+                    time: "17:30",
                     title: "숙소 체크인",
                     desc: "Okinawa Plaisant Villa 도착. 짐 풀고 잠시 휴식.",
                     location: "Okinawa Plaisant Villa",
@@ -113,7 +113,7 @@
                     icon: <Moon className="w-6 h-6" />
                 },
                 {
-                    time: "18:30",
+                    time: "19:00",
                     title: "저녁: 808 Poke Bowls Okinawa",
                     desc: "숙소 근처 맛집. 하와이안 포케(덮밥) 전문점.",
                     imgPrompt: "Hawaiian poke bowl fresh tuna salmon",
@@ -121,16 +121,15 @@
                     location: "808 Poke Bowls Okinawa",
                     type: "meal",
                     alternatives: [
-                        { name: "Sea Side Drive In", desc: "24시간 드라이브 인" },
                         { name: "Nakadomari Seafood", desc: "숙소 앞 해산물 요리" }
                     ],
                     mainDish: "참치/연어 포케볼",
                     tips: "매장이 협소할 수 있어 테이크아웃 적극 추천."
                 },
                 {
-                    time: "20:00",
+                    time: "20:30",
                     title: "휴식",
-                    desc: "숙소 내 휴식. 다음날을 위해 에너지 충전.",
+                    desc: "숙소 내 휴식. 다음날 북부 투어를 위해 에너지 충전.",
                     type: "activity",
                     icon: <Coffee className="w-6 h-6" />
                 }
@@ -138,86 +137,79 @@
             },
             2: {
                 date: "1월 15일 (목)",
-                title: "중부 투어 & 온천 힐링",
-                routeLink: "https://www.google.com/maps/dir/Okinawa+Plaisant+Villa/Hamaya+Soba/ZHYVAGO+COFFEE+ROASTERY/Terme+Villa+Chula-u/Ichigenya+American+Village/",
+                title: "북부 핵심 투어 (쿄다-츄라우미-코우리)",
+                routeLink: "https://www.google.com/maps/dir/Okinawa+Plaisant+Villa/Kyoda+Rest+Area/Okinawa+Churaumi+Aquarium/Ufuya/Kouri+Bridge/アグーしゃぶしゃぶと餃子+アサヒ屋/",
                 cost: {
-                    food: "348,000",
-                    entrance: "165,000",
-                    gas: "5,000",
-                    total: "518,000",
-                    note: "식사/카페(3회), 츄라유 온천 입장료(11인) 포함."
+                    food: "543,000",
+                    entrance: "178,000",
+                    gas: "25,000",
+                    total: "746,000",
+                    note: "식사(2회), 쿄다 휴게소 할인 티켓(11인) 및 북부 왕복 주유비."
                 },
                 schedule: [
                 {
                     time: "09:00",
-                    title: "아침: 편의점/숙소",
-                    desc: "숙소 근처 편의점 이용.",
-                    type: "activity",
-                    icon: <Coffee className="w-6 h-6" />
+                    title: "숙소 출발 & 만좌모(차창)",
+                    desc: "북부로 이동하며 만좌모 근처를 지나갑니다. (시간 여유 시 잠시 하차)",
+                    type: "transport",
+                    icon: <Navigation className="w-6 h-6" />
                 },
                 {
-                    time: "11:30",
-                    title: "점심: 하마야 소바 (Hamaya)",
-                    desc: "입에서 살살 녹는 연골 소키(갈비) 국수. 어르신 선호도 1위.",
-                    imgPrompt: "Okinawa soba soft pork ribs soup",
-                    price: "1인 약 800엔 (7,500원)",
-                    location: "Hamaya Soba",
-                    type: "meal",
-                    alternatives: [
-                        { name: "미하마 소바", desc: "아메리칸 빌리지 내" },
-                        { name: "고디스", desc: "수제버거 전문" }
-                    ],
-                    mainDish: "하마야 소바, 쥬시(볶음밥)",
-                    tips: "인기 맛집이라 대기 가능성 있음."
-                },
-                {
-                    time: "13:00",
-                    title: "Zhyvago Coffee Roastery",
-                    desc: "바다 뷰가 멋진 카페. 휴식하며 커피 한잔.",
-                    imgPrompt: "Trendy seaside cafe interior coffee latte art",
-                    price: "음료 약 600엔~",
-                    location: "ZHYVAGO COFFEE ROASTERY",
-                    type: "activity",
-                    alternatives: [
-                        { name: "Seaside Cafe Hanon", desc: "팬케이크" }
-                    ],
-                    tips: "자리 확보를 위해 나눠서 앉으시는 게 좋습니다."
-                },
-                {
-                    time: "14:30",
-                    title: "아메리칸 빌리지 산책",
-                    desc: "쇼핑몰과 거리 구경. 사진 찍기 좋은 스팟이 많음.",
-                    location: "American Village",
-                    type: "activity",
-                    icon: <Sun className="w-6 h-6" />
-                },
-                {
-                    time: "16:00",
-                    title: "츄라유 온천 (Churayu)",
-                    desc: "여행의 피로를 푸는 족욕 또는 온천욕. (입장료 1,600엔/인)",
-                    location: "Terme Villa Churayu",
+                    time: "10:00",
+                    title: "쿄다 휴게소 (Michi-no-Eki Kyoda)",
+                    desc: "필수 코스! 츄라우미 수족관 할인 티켓 구매 (약 1,880엔 -> 1,600엔). 옵빠 아이스크림 등 간식 구매.",
+                    location: "Michi-no-Eki Kyoda",
                     type: "activity",
                     icon: <Users className="w-6 h-6" />
                 },
                 {
-                    time: "18:00",
-                    title: "저녁: 이치겐야 (Ichigenya)",
-                    desc: "철판 오코노미야키. 눈앞에서 요리해주는 즐거움.",
-                    imgPrompt: "Okonomiyaki teppanyaki grill food",
-                    price: "1인 약 2,000엔 (19,000원)",
-                    location: "Ichigenya American Village",
-                    type: "meal",
-                    alternatives: [
-                        { name: "레드 랍스터", desc: "패밀리 레스토랑" },
-                        { name: "포시즌 스테이크", desc: "철판 스테이크" }
-                    ],
-                    mainDish: "오코노미야키, 야끼소바",
-                    tips: "온천 후 바로 이동하기 좋은 위치."
+                    time: "11:00",
+                    title: "츄라우미 수족관",
+                    desc: "오키나와 필수 코스. 고래상어 대형 수조 관람. (할인 티켓 사용)",
+                    location: "Okinawa Churaumi Aquarium",
+                    type: "activity",
+                    icon: <Users className="w-6 h-6" />
                 },
                 {
-                    time: "20:00",
+                    time: "13:30",
+                    title: "점심: 우후야 (Ufuya, 大家)",
+                    desc: "츄라우미 수족관 근처 전통 가옥 식당. 폭포가 보이는 멋진 경관.",
+                    imgPrompt: "Traditional Okinawan house restaurant Ufuya",
+                    price: "1인 약 1,800엔 (16,000원)",
+                    location: "Ufuya",
+                    type: "meal",
+                    alternatives: [
+                        { name: "얀바루 다이닝 마츠", desc: "현지 가정식 맛집" }
+                    ],
+                    mainDish: "아구돼지 소바 세트, 돈가스 덮밥",
+                    tips: "인기가 많아 대기가 있을 수 있으니 도착하자마자 대기표를 뽑으세요."
+                },
+                {
+                    time: "15:30",
+                    title: "코우리 대교 & 해변",
+                    desc: "바다 위를 달리는 드라이브 후 에메랄드빛 해변에서 산책.",
+                    location: "Kouri Bridge",
+                    type: "activity",
+                    icon: <Navigation className="w-6 h-6" />
+                },
+                {
+                    time: "18:00",
+                    title: "저녁: 아사히야 (Asahiya)",
+                    desc: "나고 시내에 위치. 북부에서 숙소로 내려오는 길에 들르기 좋은 샤브샤브 맛집. (예약 추천)",
+                    imgPrompt: "Shabu shabu pork hot pot vegetables",
+                    price: "1인 약 3,500엔 (32,000원)",
+                    location: "アグーしゃぶしゃぶと餃子 アサヒ屋",
+                    type: "meal",
+                    alternatives: [
+                        { name: "시마부타야", desc: "아구 돼지 찜 요리" }
+                    ],
+                    mainDish: "아구 돼지 샤브샤브, 야끼교자",
+                    tips: "식사 후 숙소까지 약 40분 소요."
+                },
+                {
+                    time: "20:30",
                     title: "숙소 복귀",
-                    desc: "안전하게 숙소로 이동.",
+                    desc: "안전하게 숙소로 이동하여 휴식.",
                     type: "activity",
                     icon: <Moon className="w-6 h-6" />
                 }
@@ -225,89 +217,88 @@
             },
             3: {
                 date: "1월 16일 (금)",
-                title: "북부 핵심 & 전통 가옥 식사",
-                routeLink: "https://www.google.com/maps/dir/Okinawa+Plaisant+Villa/Manzamo/Okinawa+Churaumi+Aquarium/Ufuya/Kouri+Bridge/アグーしゃぶしゃぶと餃子+アサヒ屋/",
+                title: "남부 드라이브 & 감성 카페 투어",
+                // 경로: 숙소 -> 니라이카나이 대교 -> 치넨미사키 공원 -> 카페 쿠루쿠마 -> 우미카지 테라스 -> 오션Boo(저녁) -> 숙소
+                routeLink: "https://www.google.com/maps/dir/Okinawa+Plaisant+Villa/Nirai+Kanai+Bridge/Cape+Chinen+Park/Cafe+Curcuma/Umikaji+Terrace+Senagajima/Ocean+Boo!+Naha/Okinawa+Plaisant+Villa",
                 cost: {
-                    food: "542,000",
-                    entrance: "203,000",
-                    gas: "20,000",
-                    total: "765,000",
-                    note: "식사(2회), 츄라우미 수족관 및 만좌모 입장료(11인)와 북부 왕복 주유비 추정."
+                    food: "520,000",
+                    entrance: "0",
+                    gas: "30,000",
+                    total: "550,000",
+                    note: "식사(2회), 카페(1회) 및 남부 장거리 왕복 주유비 포함. (입장료 없음)"
                 },
                 schedule: [
                 {
-                    time: "09:00",
-                    title: "만좌모 (Manzamo)",
-                    desc: "숙소에서 북쪽으로 올라가는 길에 위치. 코끼리 절벽 배경으로 가족 사진 촬영. (입장료 100엔/인)",
-                    location: "Manzamo",
+                    time: "10:00",
+                    title: "남부로 출발 & 드라이브",
+                    desc: "숙소에서 남부로 이동 (약 1시간 소요). 고속도로 이용 권장.",
+                    type: "transport",
+                    icon: <Navigation className="w-6 h-6" />
+                },
+                {
+                    time: "11:30",
+                    title: "니라이카나이 대교 & 치넨미사키 공원",
+                    desc: "바다를 향해 굽이치는 환상의 드라이브 코스(니라이카나이). 이후 치넨미사키 공원에서 탁 트인 바다 감상 (입장료 무료).",
+                    location: "Cape Chinen Park",
                     type: "activity",
                     icon: <Sun className="w-6 h-6" />
                 },
                 {
-                    time: "10:30",
-                    title: "츄라우미 수족관",
-                    desc: "오키나와 필수 코스. 고래상어 대형 수조 관람. (만좌모에서 약 1시간 이동, 입장료 1,880엔/인)",
-                    location: "Okinawa Churaumi Aquarium",
-                    type: "activity",
-                    icon: <Users className="w-6 h-6" />
-                },
-                {
                     time: "13:00",
-                    title: "점심: 우후야 (Ufuya, 大家)",
-                    desc: "100년 된 류큐 전통 가옥에서 즐기는 식사. 폭포가 보이는 멋진 경관. 타코라이스보다 어르신 입맛에 맞는 '아구돼지 소바' 추천.",
-                    imgPrompt: "Traditional Okinawan house restaurant Ufuya",
-                    price: "1인 약 1,800엔 (16,000원)",
-                    location: "Ufuya",
+                    title: "점심: 카페 쿠루쿠마 (Cafe Curcuma)",
+                    desc: "절벽 위에 위치하여 태평양이 한눈에 보이는 최고의 뷰 맛집. 태국 요리와 카레가 유명하며 맵지 않은 메뉴도 있음.",
+                    imgPrompt: "Thai curry with ocean view",
+                    price: "1인 약 1,500엔 (14,000원)",
+                    location: "Cafe Curcuma",
                     type: "meal",
                     alternatives: [
-                        { name: "얀바루 다이닝 마츠", desc: "현지 가정식 맛집" },
-                        { name: "카이로(Kairo)", desc: "커리 맛집" }
+                        { name: "야부사치", desc: "바다 뷰 이탈리안 카페/식당" },
+                        { name: "오우섬 튀김", desc: "가볍게 튀김 간식" }
                     ],
-                    mainDish: "아구돼지 소바 세트, 돈가스 덮밥",
-                    tips: "인기가 많아 대기가 있을 수 있으니 도착하자마자 대기표를 뽑으세요."
+                    mainDish: "쿠루쿠마 스페셜 카레, 팟타이",
+                    tips: "웨이팅이 있을 수 있으나 경치가 좋아 기다림이 지루하지 않습니다."
                 },
                 {
                     time: "15:00",
-                    title: "코우리 대교 & 해변",
-                    desc: "바다 위를 달리는 드라이브 후 해변 산책. 에메랄드빛 바다 감상.",
-                    location: "Kouri Bridge",
-                    type: "activity",
-                    icon: <Navigation className="w-6 h-6" />
-                },
-                {
-                    time: "17:30",
-                    title: "저녁: 아사히야 (Asahiya)",
-                    desc: "나고 시내에 위치. 코우리에서 내려오는 길에 들르기 좋음. 따뜻한 샤브샤브로 마무리.",
-                    imgPrompt: "Shabu shabu pork hot pot vegetables",
-                    price: "1인 약 3,500엔 (32,000원)",
-                    location: "アグーしゃぶしゃぶと餃子 アサヒ屋",
-                    type: "meal",
-                    alternatives: [
-                        { name: "시마부타야", desc: "아구 돼지 찜 요리" },
-                        { name: "류큐의 소", desc: "고급 야키니쿠 (예약 필수)" }
-                    ],
-                    mainDish: "아구 돼지 샤브샤브, 야끼교자",
-                    tips: "예약 필수. 식사 후 숙소까지 약 40분 소요."
-                },
-                {
-                    time: "20:00",
-                    title: "숙소 복귀 & 파티",
-                    desc: "오키나와에서의 마지막 밤을 가족들과 함께.",
-                    location: "Okinawa Plaisant Villa",
+                    title: "우미카지 테라스 (Senaga Island)",
+                    desc: "오키나와의 산토리니. 하얀 건물과 푸른 바다, 비행기 이착륙을 가까이서 볼 수 있음. 예쁜 카페와 기념품 쇼핑.",
+                    location: "Umikaji Terrace Senagajima",
                     type: "activity",
                     icon: <Users className="w-6 h-6" />
+                },
+                {
+                    time: "18:00",
+                    title: "저녁: 오션 Boo! 나하점",
+                    desc: "남부에서 숙소로 올라가는 길에 들르기 좋은 위치. 리스트에 있던 아구돼지 샤브샤브 맛집.",
+                    imgPrompt: "Agu pork shabu shabu dining",
+                    price: "1인 약 3,000엔 (27,000원)",
+                    location: "Ocean Boo! Naha",
+                    type: "meal",
+                    alternatives: [
+                        { name: "스테이크 하우스 88", desc: "오키나와 대표 스테이크" }
+                    ],
+                    mainDish: "아구돼지 샤브샤브",
+                    tips: "나하 시내를 지나가므로 퇴근 시간대 교통 체증 주의."
+                },
+                {
+                    time: "20:30",
+                    title: "숙소 복귀 & 짐 정리",
+                    desc: "오키나와 마지막 밤. 숙소로 복귀하여 짐 정리.",
+                    location: "Okinawa Plaisant Villa",
+                    type: "activity",
+                    icon: <Moon className="w-6 h-6" />
                 }
                 ]
             },
             4: {
                 date: "1월 17일 (토)",
-                title: "체크아웃 & 공항 이동",
+                title: "체크아웃 & 출국",
                 routeLink: "https://www.google.com/maps/dir/Okinawa+Plaisant+Villa/Naha+Airport/",
                 cost: {
                     food: "0",
                     entrance: "0",
-                    gas: "5,000",
-                    total: "5,000",
+                    gas: "15,000",
+                    total: "15,000",
                     note: "숙소에서 공항까지 이동 주유비 추정. (식사/활동비 없음)"
                 },
                 schedule: [
@@ -385,8 +376,6 @@
                     <span className="text-sm font-bold bg-white text-pink-500 px-3 py-1 rounded-full">{item.price}</span>
                 </div>
                 <div className="p-5">
-                    
-                    {/* 이미지 Placeholder 삭제됨 */}
                     
                     <p className="text-xl text-gray-700 leading-relaxed mb-4 font-medium">
                         {item.desc}
@@ -520,8 +509,8 @@
                                 </h3>
                                 <p className="text-lg text-yellow-900">
                                     숙소: <strong>Okinawa Plaisant Villa</strong><br/>
-                                    (1374-6 Nakadomari, Onna)<br/>
-                                    구글맵에 주소를 미리 저장해두시면 편해요! 에어비앤비라 조식이 없으니 전날 편의점에서 우유, 빵 등을 사두세요.
+                                    (1374-6 Nakadomari, Onna) <br/>
+                                    숙소 위치가 중북부에 있으므로, 1일차와 2, 3일차 동선을 나누어 왕복 이동 거리를 최소화했습니다.
                                 </p>
                             </div>
                         )}
@@ -539,4 +528,3 @@
     </script>
 </body>
 </html>
-
